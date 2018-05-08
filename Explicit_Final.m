@@ -28,7 +28,6 @@ lam=k*dt/(dx^2);
 r=1-4*lam;
 [X,Y]=meshgrid(x,y);
 u=zeros(N,N);
-uref=u;
 t=0;                                    %Initial Time=0
 err=10000;
 while err>0.00001
@@ -46,12 +45,8 @@ u_t(:,1)=u_ax;                          %Apply left BC to u at time+dt
 for i=2:N-1
     u_t(i,N)=r*u(i,j)+lam*u(i,j+1)+2*lam*u(i-1,j)+lam*u(i,j-1);
 end
-
     u=u_t;
-    err_1=sum(abs(u_t-uref))/(N^2*100);
-    err=sum(err_1);
-    uref=u_t;
-    
+    err_1=sum(abs(u_t-u));
 t=t+dt;
 drawnow
 contourf(X,Y,u)
