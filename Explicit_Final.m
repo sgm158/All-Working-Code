@@ -3,7 +3,7 @@ clc
 
 
 
-N=30;
+N=20;
 k=1;
 %%Distance mesh y and x
 y=linspace(-pi,pi,N);
@@ -30,7 +30,9 @@ r=1-4*lam;
 u=zeros(N,N);
 t=0;                                    %Initial Time=0
 err=10000;
-while err>0.00001
+iteration=0;
+u_1=u;
+while err>0.0001
     u_t=zeros(N,N);
 for j=2:N-1
    for i=2:N-1
@@ -46,11 +48,17 @@ for i=2:N-1
     u_t(i,N)=r*u(i,j)+lam*u(i,j+1)+2*lam*u(i-1,j)+lam*u(i,j-1);
 end
     u=u_t;
-    err_1=sum(abs(u_t-u));
+    err_1=sum(abs(u_t-u_1));
+    err=sum(err_1);
+ u_1=u_t;
+iteration=iteration+1;
 t=t+dt;
 drawnow
 contourf(X,Y,u)
 title(sprintf('%11.3f  seconds',t))
+xlabel('x axis')
+ylabel('y axis')
 end
+sprintf('Iterations %d',iteration)
 
     
