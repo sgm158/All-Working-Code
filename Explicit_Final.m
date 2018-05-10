@@ -21,7 +21,7 @@ fb=(bx-x).^2.*cos(pi*x/bx);              %Bottom BC
 gb=x.*(bx-x).^2;                         %Top BC
 fbax=(bx-ax)^2*cos(pi*ax/bx);
 gbax=ax*(bx-ax)^2;
-u_ax=fliplr(gbax+(y-ay)./(by-ay)*(fbax-gbax));   %Left BC
+u_ax=(gbax+(y-ay)./(by-ay)*(fbax-gbax));   %Left BC
 %%Nested For Loops for Explicit Method
 u_t=zeros(N,N);
 lam=k*dt/(dx^2);
